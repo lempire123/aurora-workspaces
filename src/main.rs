@@ -6,8 +6,6 @@ use std::fs::File;
 use std::fs::read_dir;
 use std::clone::Clone;
 
-// const ETH_RANDOM_HEX_PATH: &str = "./res/BYTECODE.hex";
-// const ETH_RANDOM_ABI_PATH: &str = "./res/ABI.abi";
 const PRIVATE_KEY: [u8; 32] = [88u8; 32];
 
 #[tokio::main]
@@ -66,7 +64,6 @@ async fn main() -> anyhow::Result<()> {
         EthContract::new(abi, code)
     };
 
-    // let random_logic_contract = RandomLogic::new(contract, address);
     let wrapped_ether_contract = Wrappedether::new(contract, addresses[0]);
 
     // Fast forward a few blocks...
@@ -119,36 +116,6 @@ impl Wrappedether {
             }
     }
 }
-// struct RandomLogic {
-//     contract: EthContract,
-//     address: [u8; 20],
-// }
-
-// impl RandomLogic {
-//     pub fn new(contract: EthContract, address: [u8; 20]) -> Self {
-//         Self { contract, address }
-//     }
-
-//     pub fn compute_winner_transaction(&self, nonce: u128) -> LegacyTransaction {
-//         let data = self
-//             .contract
-//             .abi
-//             .function("computeWinner")
-//             .unwrap()
-//             .encode_input(&[])
-//             .unwrap();
-
-//             LegacyTransaction {
-//                 chain: 1313161556,
-//                 nonce,
-//                 gas_price: Default::default(),
-//                 to: Some(self.address),
-//                 value: Default::default(),
-//                 data,
-//                 gas: u64::MAX as u128,
-//             }
-//     }
-// }
 
 struct EthContract {
     abi: ethabi::Contract,
